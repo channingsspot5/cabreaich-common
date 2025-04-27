@@ -1,0 +1,9 @@
+# In cabreaich-common/requirements.txt
+pydantic>=2.0,<3.0
+pydantic-settings>=2.0,<3.0
+httpx>=0.25,<0.28  # Or requests>=2.0,<3.0 if using requests
+# Add any other direct dependencies here
+
+# --- Optional: Add ONLY if directly used by code WITHIN cabreaich_common ---
+aiohttp>=3.8.0          # If cabreaich_common/clients.py defines shared ASYNC clients
+# requests>=2.25.0        # If cabreaich_common/clients.py defines shared SYNC clients

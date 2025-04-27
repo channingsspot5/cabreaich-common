@@ -1,0 +1,28 @@
+Metadata-Version: 2.4
+Name: cabreaich-common
+Version: 0.1.0
+Summary: Shared common library for the CabReAIch project.
+Author: ReAIch Team
+Author-email: your.email@example.com
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Private :: Do Not Upload
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: pydantic<3.0,>=2.0
+Requires-Dist: pydantic-settings<3.0,>=2.0
+Requires-Dist: httpx<0.28,>=0.25
+Requires-Dist: aiohttp>=3.8.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description-content-type
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
