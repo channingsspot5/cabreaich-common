@@ -5,6 +5,7 @@
 import httpx # Use httpx for both sync and async support
 import asyncio
 from typing import Any, Dict, Optional, Type, Union # Added Union
+import uuid
 from pydantic import BaseModel
 
 # Import common settings and exceptions
