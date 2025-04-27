@@ -18,8 +18,7 @@ class LogEntry(BaseModel):
     level: str
     message: str
     logger_name: str
-    from typing import Optional
-    session_id: Optional[uuid.UUID] = None
+    session_id: uuid.UUID | None = None
     # Add other common fields with appropriate types
     # e.g., request_id: str | None = None
     # e.g., duration_ms: float | None = None
