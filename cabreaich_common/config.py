@@ -13,6 +13,10 @@ from typing import Optional
 config_log = logging.getLogger(__name__ + ".config_loader")
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+# LOG_LEVEL options: "DEBUG", "INFO", "WARNING", "DEBUG_VERBOSE"
+LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
+
+
 # Define the path to the .env file relative to where the app runs
 # Assuming containers run with /app as the working directory
 DOTENV_PATH = os.getenv("DOTENV_PATH", "/app/.env")
@@ -80,7 +84,7 @@ class Settings(BaseSettings):
     @validator('LOG_LEVEL')
     def validate_log_level(cls, value):
         """Ensure log level is a valid logging level name."""
-        valid_levels = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
+        valid_levels = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL', 'DEBUG_VERBOSE']
         upper_value = value.upper()
         if upper_value not in valid_levels:
             raise ValueError(f"Invalid LOG_LEVEL: {value}. Must be one of {valid_levels}")
