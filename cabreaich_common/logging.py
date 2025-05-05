@@ -2,6 +2,9 @@ import logging
 from pydantic import BaseModel, Field
 from datetime import datetime
 import uuid
+import os
+from logging.handlers import RotatingFileHandler
+
 
 # --- Constants ---
 LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -26,17 +29,28 @@ class LogEntry(BaseModel):
     class Config:
         extra = 'allow' # Allow arbitrary extra fields
 
-# --- Basic Logger Setup (can be customized further) ---
+# ---  Logger Setup (can be customized further) ---
+
 def setup_logger(name: str, level: str = "INFO") -> logging.Logger:
-    """Sets up a basic logger instance."""
+    """Sets up a logger with stdout + rotating file handler."""
     logger = logging.getLogger(name)
     logger.setLevel(level.upper())
-    if not logger.handlers: # Avoid adding multiple handlers
-        handler = logging.StreamHandler()
+    if not logger.handlers:
         formatter = logging.Formatter(LOG_FORMAT)
-        handler.setFormatter(formatter)
-        logger.addHandler(handler)
+
+        # File handler
+        os.makedirs("/app/logs", exist_ok=True)
+        file_handler = RotatingFileHandler("/app/logs/speech_sdk.log", maxBytes=2_000_000, backupCount=3)
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
+
+        # Stdout/console handler
+        stream_handler = logging.StreamHandler()
+        stream_handler.setFormatter(formatter)
+        logger.addHandler(stream_handler)
+
     return logger
+
 
 # Example usage elsewhere:
 # from cabreaich_common.logging import setup_logger, LogEntry
