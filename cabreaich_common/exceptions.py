@@ -59,10 +59,10 @@ class ValidationError(CabreaichError):
 
 # Add other specific, shared exceptions as needed
 # Example:
-# class ConfigurationError(CabreaichError):
-#     """Exception raised for missing or invalid configuration."""
-#     pass
+class ConfigurationError(CabreaichError):
+    """Exception raised for missing or invalid configuration."""
+    pass
 
-# class DatabaseError(CabreaichError):
-#     """Exception raised for database interaction errors."""
-#     pass
+class DatabaseError(CabreaichError):
+    """Exception raised for database interaction errors."""
+    pass

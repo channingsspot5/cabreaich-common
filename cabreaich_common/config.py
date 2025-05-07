@@ -34,6 +34,8 @@ class Settings(BaseSettings):
     These variables are expected to be used by multiple services.
     """
 
+
+
     # --- Shared Service URLs ---
     # URL for the QLogic routing service (Required)
     QLOGIC_ROUTE_URL: HttpUrl = Field(..., validation_alias="QLOGIC_ROUTE_URL")
@@ -66,6 +68,10 @@ class Settings(BaseSettings):
     AZURE_COSMOS_CONTAINER: str = Field(..., validation_alias="AZURE_COSMOS_CONTAINER")
     # Partition key path for the Cosmos Container (Required)
     AZURE_COSMOS_PARTITION_KEY_PATH: str = Field("/session_id", validation_alias="AZURE_COSMOS_PARTITION_KEY_PATH")
+
+    # --- Azure Speech Settings ---
+    AZURE_SPEECH_KEY: SecretStr = Field(..., validation_alias="AZURE_SPEECH_KEY")
+    AZURE_SPEECH_REGION: str = Field(..., validation_alias="AZURE_SPEECH_REGION")
 
     # --- Shared Logging Config ---
     # Default log level for services (e.g., INFO, DEBUG, WARNING)
