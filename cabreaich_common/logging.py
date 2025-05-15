@@ -4,6 +4,26 @@ from datetime import datetime
 import uuid
 import os
 from logging.handlers import RotatingFileHandler
+from pathlib import Path # Added for robust path handling
+
+# Attempt to import specific logging constants from cabreaich_common, with fallbacks
+try:
+    from cabreaich_common.constants import (
+        FALLBACK_LOG_PATH_DEFAULT,    # Standardized name for default log file path
+        ALLOWED_LOG_ROTATION_BYTES, # Standardized name for log rotation size in bytes
+        ALLOWED_LOG_BACKUPS         # Standardized name for log backup count
+    )
+except ImportError:
+    # Define fallback values if specific constants cannot be imported.
+    # This might happen if this logging module is part of cabreaich_common itself
+    # and is initialized before constants, or in an isolated environment.
+    # A warning ideally would be logged here, but the logger isn't set up yet.
+    # Using original hardcoded values as fallbacks:
+    FALLBACK_LOG_PATH_DEFAULT = "/app/logs/speech_sdk.log"
+    ALLOWED_LOG_ROTATION_BYTES = 2_000_000
+    ALLOWED_LOG_BACKUPS = 3
+    # To aid debugging if this happens:
+    # print(f"Warning: Could not import logging constants from cabreaich_common.constants. Using hardcoded fallbacks for logging setup in logging.py.")
 
 
 # --- Constants ---
@@ -35,12 +55,19 @@ def setup_logger(name: str, level: str = "INFO") -> logging.Logger:
     """Sets up a logger with stdout + rotating file handler."""
     logger = logging.getLogger(name)
     logger.setLevel(level.upper())
-    if not logger.handlers:
+    if not logger.handlers: # Ensure handlers are not added multiple times
         formatter = logging.Formatter(LOG_FORMAT)
 
-        # File handler
-        os.makedirs("/app/logs", exist_ok=True)
-        file_handler = RotatingFileHandler("/app/logs/speech_sdk.log", maxBytes=2_000_000, backupCount=3)
+        # File handler using constants
+        log_file_path = Path(FALLBACK_LOG_PATH_DEFAULT)
+        # Ensure parent directory exists for the log file
+        log_file_path.parent.mkdir(parents=True, exist_ok=True)
+
+        file_handler = RotatingFileHandler(
+            filename=str(log_file_path), # Convert Path object to string for the handler
+            maxBytes=ALLOWED_LOG_ROTATION_BYTES,
+            backupCount=ALLOWED_LOG_BACKUPS
+        )
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
 
