@@ -69,6 +69,13 @@ class PromptMode(str, Enum):
     CHAT = "chat"
     AUTO = "auto"
 
+# --- Audio Queue / Pull Stream Constants ---
+PREBUFFER_MAX_FRAMES = 20          # Frames to buffer before flushing to STT
+QUEUE_PUT_TIMEOUT_SECONDS = 1.0    # Timeout for audio_capture put() operations
+QUEUE_GET_TIMEOUT_SECONDS = 1.0    # Timeout for PullAudioInputStream read() ops
+INITIAL_DATA_WAIT_SECONDS = 2.0    # How long to wait for first frame after enabling STT
+
+
 # -------------------
 # 🧾 Default Log Format (optional centralization)
 # -------------------
