@@ -118,6 +118,10 @@ class VADTimingFlagsData(TimestampedModel):
         populate_by_name = True
         extra = "allow"
 
+class EBD_Event(BaseModel):
+    """Energy-Based Detection silence event."""
+    timestamp: float = Field(..., description="Epoch seconds when silence threshold was hit")
+
 class GuardianInputModel(BaseModel):
     """
     Standardized model for capturing guardian input data.
