@@ -81,5 +81,11 @@ INITIAL_DATA_WAIT_SECONDS = 2.0    # How long to wait for first frame after enab
 # -------------------
 DEFAULT_LOG_FORMAT: str = "%(asctime)s - %(levelname)s - %(message)s"
 
+# ⏱️ Timing Thresholds (if VAD/scoring thresholds are added)
+MIN_SPEECH_DURATION_MS: int = 300
+MAX_SILENCE_DURATION_MS: int = 2000
+GAP_THRESHOLD_MS: int = 150
 
-
+# Energy-Based Detection (EBD)
+EBD_SILENCE_THRESHOLD_DB: float = -40.0  # dBFS threshold to consider “silence”
+EBD_MAX_SILENT_FRAMES: int = 20          # Number of consecutive silent frames
